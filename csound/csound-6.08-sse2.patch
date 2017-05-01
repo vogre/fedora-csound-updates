@@ -1,0 +1,44 @@
+--- cmake/CompilerOptimizations.cmake.orig	2017-02-04 21:33:49.238875410 +0200
++++ cmake/CompilerOptimizations.cmake	2017-02-04 21:38:33.681564067 +0200
+@@ -19,30 +19,6 @@ if (HAS_CXX_FAST_MATH AND NOT MINGW)
+ endif()
+ 
+ 
+-if(NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+-
+-check_c_compiler_flag(-mfpmath=sse HAS_FPMATH_SSE)
+-check_cxx_compiler_flag(-mfpmath=sse HAS_CXX_FPMATH_SSE)
+-  if (HAS_FPMATH_SSE)
+-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mfpmath=sse")
+-endif()
+-if (HAS_CXX_FPMATH_SSE)
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mfpmath=sse")
+-endif()
+-
+-endif()
+-
+-
+-check_c_compiler_flag(-msse2 HAS_SSE2)
+-check_cxx_compiler_flag(-msse2 HAS_CXX_SSE2)
+-  if (HAS_SSE2 AND NOT IOS)
+-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -msse2")
+-endif()
+-if (HAS_CXX_SSE2 AND NOT IOS)
+-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2")
+-endif()
+-
+-
+ check_c_compiler_flag(-fomit-frame-pointer HAS_OMIT_FRAME_POINTER)
+ check_cxx_compiler_flag(-fomit-frame-pointer HAS_CXX_OMIT_FRAME_POINTER)
+ if (HAS_OMIT_FRAME_POINTER)
+--- CMakeLists.txt.orig	2017-05-01 19:51:48.770539230 +0300
++++ CMakeLists.txt	2017-05-01 19:56:41.649699411 +0300
+@@ -1160,7 +1160,7 @@
+ 
+ if(LINUX)
+     message(STATUS "Building on Linux.")
+-    add_definitions(-DLINUX -DPIPES -DNO_FLTK_THREADS -D_GNU_SOURCE -DHAVE_SOCKETS)
++    add_definitions(-DLINUX -DPIPES -DNO_FLTK_THREADS -D_GNU_SOURCE -DHAVE_SOCKETS -DPFFFT_SIMD_DISABLE)
+     list(APPEND libcsound_LIBS m dl)
+ 
+     find_library(LIBRT_LIBRARY rt)

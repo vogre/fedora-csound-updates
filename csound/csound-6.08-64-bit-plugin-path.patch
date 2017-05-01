@@ -1,0 +1,40 @@
+--- CMakeLists.txt.orig	2017-02-04 22:30:16.670767865 +0200
++++ CMakeLists.txt	2017-02-04 22:29:23.216953000 +0200
+@@ -35,11 +35,10 @@ message(STATUS "LIBRARY INSTALL DIR: ${L
+ 
+ if(USE_DOUBLE)
+    message(STATUS "Building with 64-bit floats")
+-    set(PLUGIN_INSTALL_DIR "${LIBRARY_INSTALL_DIR}/csound/plugins64-${APIVERSION}")
+ else()
+   message(STATUS "Building with 32-bit floats")
+-    set(PLUGIN_INSTALL_DIR "${LIBRARY_INSTALL_DIR}/csound/plugins-${APIVERSION}")
+ endif()
++set(PLUGIN_INSTALL_DIR "${LIBRARY_INSTALL_DIR}/csound/plugins-${APIVERSION}")
+ 
+ 
+ execute_process (
+--- installer/misc/mkpackage.py.orig	2017-02-04 20:49:47.206563224 +0200
++++ installer/misc/mkpackage.py	2017-02-04 20:50:43.818304341 +0200
+@@ -27,7 +27,7 @@ libDir2     = libDir + '/csound/lib'
+ # single precision plugin libraries
+ pluginDir32 = libDir + '/csound/plugins'
+ # double precision plugin libraries
+-pluginDir64 = libDir + '/csound/plugins64'
++pluginDir64 = libDir + '/csound/plugins'
+ # documentation
+ docDir      = instPrefix + '/share/doc/csound'
+ # tclcsound.so
+--- Top/csmodule.c.orig	2016-11-25 01:42:03.000000000 +0200
++++ Top/csmodule.c	2017-02-04 20:52:48.869523561 +0200
+@@ -146,9 +146,9 @@ static  const   char    *plugindir64_env
+ #  define ENABLE_OPCODEDIR_WARNINGS 0
+ #  ifndef CS_DEFAULT_PLUGINDIR
+ #    ifndef USE_DOUBLE
+-#      define CS_DEFAULT_PLUGINDIR  "/usr/local/lib/csound/plugins"
++#      define CS_DEFAULT_PLUGINDIR  "/usr/lib/csound/plugins"
+ #    else
+-#      define CS_DEFAULT_PLUGINDIR  "/usr/local/lib/csound/plugins64"
++#      define CS_DEFAULT_PLUGINDIR  "/usr/lib64/csound/plugins"
+ #    endif
+ #  endif
+ #endif

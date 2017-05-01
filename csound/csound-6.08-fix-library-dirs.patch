@@ -1,0 +1,20 @@
+--- CMakeLists.txt.orig	2017-02-06 09:43:47.404651147 +0200
++++ CMakeLists.txt	2017-02-06 09:53:39.662546162 +0200
+@@ -41,14 +41,9 @@ endif()
+ set(PLUGIN_INSTALL_DIR "${LIBRARY_INSTALL_DIR}/csound/plugins-${APIVERSION}")
+ 
+ 
+-execute_process (
+-     COMMAND python -c
+-     "import site, sys; sys.stdout.write(site.getusersitepackages())"
+-     OUTPUT_VARIABLE PYTHON_MODULE_INSTALL_DIR
+-   )
+-
+-set(JAVA_MODULE_INSTALL_DIR ${LIBRARY_INSTALL_DIR})
+-set(LUA_MODULE_INSTALL_DIR ${LIBRARY_INSTALL_DIR})
++set(JAVA_MODULE_INSTALL_DIR ${LIBRARY_INSTALL_DIR}/csound/java)
++set(LUA_MODULE_INSTALL_DIR ${LIBRARY_INSTALL_DIR}/lua/${RPM_LUAVER})
++set(PYTHON_MODULE_INSTALL_DIR ${RPM_PYTHON_SITEARCH})
+ set(LOCALE_INSTALL_DIR "share/locale")
+ set(HEADER_INSTALL_DIR "include/csound")
+ 
